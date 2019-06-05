@@ -1,0 +1,61 @@
+<!doctype html>
+
+<html ng-app="MainApp">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>MEAN Facturas</title>
+	<!-- Cargamos bootstrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<!-- Cargamos angular -->
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+	<!-- Cargamos el javascript de angular -->
+	<script src="core.js"></script>
+
+</head>
+<body ng-controller="mainController">
+	<div class="container">
+
+		<div class="jumbotron text-center" ng-prueba>
+			<h1>Nº de Facturas: <span class="label label-success">{{ facturas.length }}</span></h1>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-6 col-sm-offset-1">
+				<table class="table table-striped">
+					<tr class="info">
+						<td>Empresa</td>
+						<td>Fecha</td>
+						<td>Nro. Factura</td>
+						<td>Total</td>
+					</tr>
+					<tr ng-repeat="factura in facturas" ng-click="selectFactura(factura)">
+						<td>{{ factura.empresa }}</td>
+						<td>{{ factura.fecha }}</td>
+						<td>{{ factura.nroFactura }}</td>
+						<td>{{ factura.total }}</td>
+					</tr>
+				</table>
+			</div>
+			<div class="col-sm-4 col-sm-offset-1 text-center">
+				<form name="myForm">
+					<div class="form-group">
+						<input type="text" class="form-control input-lg text-center" placeholder="Empresa" ng-model="newFactura.empresa" required>
+						<br>
+						<input type="text" class="form-control input-lg text-center" placeholder="fecha" ng-model="newFactura.fecha" required>
+						<br>
+						<input type="text" class="form-control input-lg text-center" placeholder="Nro. factura" ng-model="newFactura.nroFactura" required>
+						<br>
+						<input type="text" class="form-control input-lg text-center" placeholder="Total" ng-model="newFactura.total" required>
+					</div>
+
+					<!-- Acciones que podemos realizar en el formulario -->
+					<button type="submit" class="btn btn-success btn-lg" ng-click="registrarFactura()" ng-disabled="myForm.$invalid || selected">Registrar</button>
+					<button type="submit" class="btn btn-warning btn-lg" ng-click="modificarFactura(newFactura)" ng-disabled="!newFactura.empresa || !newFactura.fecha || !newFactura.nroFactura || !newFactura.total || !selected">Modificar</button>
+					<button type="submit" class="btn btn-danger btn-lg" ng-click="borrarFactura(newFactura)" ng-disabled="!newFactura.empresa || !newFactura.fecha || !newFactura.nroFactura || !newFactura.total || !selected">Borrar</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
